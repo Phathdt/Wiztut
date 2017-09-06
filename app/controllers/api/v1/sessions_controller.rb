@@ -7,9 +7,7 @@ class Api::V1::SessionsController < Api::V1::BaseApiController
       @user.update(authentication_token: Devise.friendly_token)
       render json: {
         message: "Sign in Success",
-        data: {
-          authentication_token: @user.authentication_token
-        }
+        data: { authentication_token: @user.authentication_token }
       }, status: 201
     else
       render json: { message: "Password or Email not match" }, status: 406

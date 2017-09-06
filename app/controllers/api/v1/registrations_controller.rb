@@ -6,9 +6,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
     if @user.save
       render json: {
         message: "Create User",
-        data: {
-          authentication_token: @user.authentication_token
-        }
+        data: { authentication_token: @user.authentication_token }
       }, status: 201
     else
       render json: { message: @user.errors }, status: 406
@@ -17,8 +15,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
   end
 
   def update
-    render json: { message: "Wrong Token"}, status: 401 && return unless @user
-
+    render json: { message: "Wrong Token"}, status: 401 unless @user
     @user.update(registration_params)
     if @user.save
       render json: { message: "Update User", user: @user}, status: 200
