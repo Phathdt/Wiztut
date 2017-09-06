@@ -5,7 +5,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
 
     if @user.save
       render json: {
-        message: "Create User",
+        message: t('.create_user') ,
         data: { authentication_token: @user.authentication_token }
       }, status: 201
     else
@@ -15,10 +15,10 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
   end
 
   def update
-    render json: { message: "Wrong Token"}, status: 401 unless @user
+    render json: { message: t('.wrong_token') }, status: 401 unless @user
     @user.update(registration_params)
     if @user.save
-      render json: { message: "Update User", user: @user}, status: 200
+      render json: { message: t('.update_user') , user: @user}, status: 200
     else
       render json: { message: @user.errors }, status: 406
     end
@@ -27,7 +27,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
   def destroy
     @user.delete
 
-    render json: { message: "Delete User" }, status: 200
+    render json: { message: t('.delete_user') }, status: 200
   end
 
   private

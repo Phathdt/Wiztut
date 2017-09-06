@@ -221,6 +221,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   devise
+  i18n
   i18n-js (>= 3.0.1)
   jbuilder (~> 2.5)
   jquery-rails

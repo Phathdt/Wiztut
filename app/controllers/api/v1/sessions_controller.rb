@@ -6,7 +6,7 @@ class Api::V1::SessionsController < Api::V1::BaseApiController
     if @user && @user.valid_password?( session_params[:password])
       @user.update(authentication_token: Devise.friendly_token)
       render json: {
-        message: "Sign in Success",
+        message: t('.sign_in_success'),
         data: { authentication_token: @user.authentication_token }
       }, status: 201
     else
@@ -17,9 +17,9 @@ class Api::V1::SessionsController < Api::V1::BaseApiController
   def destroy
     if @user
       @user.update(authentication_token: nil)
-      render json: { message: "Sign Out Success"}, status: 200
+      render json: { message: t('.sign_out_success') }, status: 200
     else
-      render json: { message: "authentication_token not match" }, status: 406
+      render json: { message: t('.authentication_token_not_match') }, status: 406
     end
   end
 
