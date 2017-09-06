@@ -55,3 +55,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'pry'
+gem "slim-rails"
+gem 'html2slim'
