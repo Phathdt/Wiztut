@@ -14,5 +14,3 @@ test:
 production:
   <<: *default
   database: Wiztut_production
-  username: Wiztut
-  password: <%= ENV['WIZTUT_DATABASE_PASSWORD'] %>
