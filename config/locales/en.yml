@@ -2,7 +2,7 @@ en:
   api:
     v1:
       base_api:
-        user_not_found: User not found
+        user_not_found: User Not Found
       registrations:
         create:
           create_user: Create User
@@ -16,4 +16,4 @@ en:
           sign_in_success: Sign In Success
         destroy:
           sign_out_success: Sign Out Success
-          authentication_token_not_match: Authentication Token not match
+          authentication_token_not_match: Authentication Token Not Match
