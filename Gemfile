@@ -32,3 +32,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'pry-rails'
 end
+
+## Ruby version
+ruby "2.4.1"
