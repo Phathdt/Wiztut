@@ -5,9 +5,9 @@ en:
         not_authenticated: Not Authenticated
       registrations:
         create:
-          create_user: Create User
+          create_user: Created User
         update:
-          update_user: Update User
+          update_user: Updated User
       sessions:
         create:
           sign_in_success: Sign In Success

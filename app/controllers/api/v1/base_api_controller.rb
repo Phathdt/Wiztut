@@ -29,6 +29,6 @@ class Api::V1::BaseApiController < ActionController::Base
   end
 
   def get_auth_token(user)
-    Authenticate::JsonWebToken.encode({user_id:user.id})
+    Authenticate::JsonWebToken.encode({user_id:user.id, email: user.email})
   end
 end
