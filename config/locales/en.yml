@@ -2,18 +2,16 @@ en:
   api:
     v1:
       base_api:
-        user_not_found: User Not Found
+        not_authenticated: Not Authenticated
       registrations:
         create:
           create_user: Create User
         update:
-          wrong_token: Wrong Token
           update_user: Update User
-        destroy:
-          delete_user: Delete User
       sessions:
         create:
           sign_in_success: Sign In Success
+          sign_in_fail: Password or Email not match
         destroy:
           sign_out_success: Sign Out Success
           authentication_token_not_match: Authentication Token Not Match

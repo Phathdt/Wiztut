@@ -1,30 +1,25 @@
 class Api::V1::SessionsController < Api::V1::BaseApiController
-  before_action :authencate_token!, only: :destroy
+  before_action :authenticate_request!, only: :destroy
   def create
-    @user = User.find_by_email( session_params[:email])
+    user = User.find_by_email( strong_params[:email])
 
-    if @user && @user.valid_password?( session_params[:password])
-      @user.update(authentication_token: Devise.friendly_token)
+    if user && user.valid_password?( strong_params[:password])
+
       render json: {
         message: t('.sign_in_success'),
-        data: { authentication_token: @user.authentication_token }
+        data: { authentication_token: get_auth_token(user) }
       }, status: 201
     else
-      render json: { message: "Password or Email not match" }, status: 406
+      render json: { message: t('.sign_in_fail') }, status: 406
     end
   end
 
   def destroy
-    if @user
-      @user.update(authentication_token: nil)
-      render json: { message: t('.sign_out_success') }, status: 200
-    else
-      render json: { message: t('.authentication_token_not_match') }, status: 406
-    end
+    render json: { message: t('.sign_out_success') }, status: 200
   end
 
   private
-  def session_params
+  def strong_params
     params.require(:session).permit( :email, :password)
   end
 end

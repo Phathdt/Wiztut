@@ -4,13 +4,13 @@ class Api::V1::BaseApiController < ActionController::Base
   protected
   def authenticate_request!
     unless user_id_in_token?
-      render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+      render json: { errors: I18n.t('api.v1.base_api.not_authenticated')}, status: :unauthorized
       return
     end
 
     @current_user = User.find(auth_token[:user_id])
   rescue JWT::VerificationError, JWT::DecodeError
-    render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+    render json: { errors: I18n.t('api.v1.base_api.not_authenticated') }, status: :unauthorized
   end
 
   private
@@ -26,5 +26,9 @@ class Api::V1::BaseApiController < ActionController::Base
 
   def user_id_in_token?
     http_token && auth_token && auth_token[:user_id]
+  end
+
+  def get_auth_token(user)
+    Authenticate::JsonWebToken.encode({user_id:user.id})
   end
 end
