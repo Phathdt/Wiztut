@@ -24,7 +24,7 @@ gem 'turbolinks', '~> 5'
 
 ## Authorization
 gem 'devise'
-gem 'simple_token_authentication', '~> 1.0'
+gem 'jwt', '~>1.5.3'
 
 group :development do
   gem 'byebug'
