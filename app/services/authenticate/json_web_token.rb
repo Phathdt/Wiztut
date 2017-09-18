@@ -1,5 +1,7 @@
 class Authenticate::JsonWebToken
+  EXPIRY_TIME = 1.month.to_i
   def self.encode(payload)
+    payload[:exp] = Time.now.to_i + EXPIRY_TIME
     JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
   end
 
