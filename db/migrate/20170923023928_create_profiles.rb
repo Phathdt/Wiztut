@@ -14,7 +14,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :profiles, :sex, unique: true
+    add_index :profiles, :sex,   unique: true
     add_index :profiles, :phone, unique: true
   end
 end

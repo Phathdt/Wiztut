@@ -2,9 +2,9 @@ class CreateCoursePosts < ActiveRecord::Migration[5.1]
   def change
     create_table :course_posts do |t|
       t.string     :title
-      t.string     :class
+      t.string     :grade
       t.string     :subject
-      t.integer    :time
+      t.integer    :time,           null:        false, default: 0
       t.integer    :address
       t.text       :real_address
       t.decimal    :salary
