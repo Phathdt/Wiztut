@@ -30,3 +30,15 @@ time:
   3: 15h - 17h
   4: 17h - 19h
   5: 19h - 21h
+
+degree:
+  0: degree_not_known
+  1: student
+  2: college
+  3: university
+  4: master
+
+sex:
+  1: sex_not_known 
+  2: man
+  3: woman
