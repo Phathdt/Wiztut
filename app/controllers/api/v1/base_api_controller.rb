@@ -1,4 +1,5 @@
 class Api::V1::BaseApiController < ActionController::Base
+  before_action :authenticate_request!
   attr_reader :current_user
 
   protected

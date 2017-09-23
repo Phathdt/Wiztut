@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       delete '/users', to: 'registrations#destroy'
       post '/users/sign_in', to: 'sessions#create'
       delete '/users/sign_out', to: 'sessions#destroy'
+      resources :profiles, only: [:create, :update]
     end
   end
 end

@@ -4,7 +4,6 @@ class Api::V1::SessionsController < Api::V1::BaseApiController
     user = User.find_by_email( strong_params[:email])
 
     if user && user.valid_password?( strong_params[:password])
-
       render json: {
         message: t('.sign_in_success'),
         data: { authentication_token: get_auth_token(user) }

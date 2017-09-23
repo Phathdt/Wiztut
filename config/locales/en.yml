@@ -15,3 +15,8 @@ en:
         destroy:
           sign_out_success: Sign Out Success
           authentication_token_not_match: Authentication Token Not Match
+      profiles:
+        create:
+          create_profile: Created Profile
+        update:
+          update_profile: Updated Profile
