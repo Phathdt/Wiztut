@@ -6,6 +6,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string     :school
       t.integer    :degree,         null:        false, default: 0
       t.integer    :graduation_year
+      t.decimal    :salary
       t.text       :about_me
       t.string     :phone
       t.references :user,           foreign_key: true
