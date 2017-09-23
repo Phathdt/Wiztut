@@ -18,10 +18,10 @@ address:
   17: Quận Tân Phú
   18: Quận Thủ Đức
   19: Huyện Bình Chánh
-  19: Huyện Cần Giờ
-  19: Huyện Củ Chi
-  19: Huyện Hóc Môn
-  19: Huyện Nhà Bè
+  20: Huyện Cần Giờ
+  21: Huyện Củ Chi
+  22: Huyện Hóc Môn
+  23: Huyện Nhà Bè
 
 time: 
   0: 7h - 9h
@@ -32,14 +32,14 @@ time:
   5: 19h - 21h
 
 degree:
-  0: degree_not_known
+  0: none
   1: student
   2: college
   3: university
   4: master
 
 sex:
-  1: sex_not_known 
+  1: none
   2: man
   3: woman
 

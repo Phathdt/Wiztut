@@ -25,7 +25,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
 
   private
   def strong_params
-    params.require( :registration).permit( :email, :password, :password_confirmation)
+    params.require(:registration).permit(:email, :password, :password_confirmation)
   end
 
 end

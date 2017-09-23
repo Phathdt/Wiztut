@@ -20,3 +20,10 @@ en:
           create_profile: Created Profile
         update:
           update_profile: Updated Profile
+      course_posts:
+        create:
+          create_cp: Created Course Post
+        update:
+          update_cp: Updated Course Post
+        destroy:
+          destroy_cp: Destroyed Course Post
