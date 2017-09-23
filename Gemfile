@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+
 ## Base libs
 gem 'rails', '~> 5.1.3'
 gem 'pg', '~> 0.18'
@@ -32,6 +33,7 @@ group :development do
   gem 'pry-nav'
   gem 'web-console', '>= 3.3.0'
   gem 'pry-rails'
+  gem 'rails-erd', require: false
 end
 
 ## Ruby version
