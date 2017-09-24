@@ -17,7 +17,7 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
       render json: {
         message: t('.create_tp'),
         teacher_post: tp
-      }, status: 201
+      }, status: 200
     else
       render json: { message: tp.errors }, status: 406
     end

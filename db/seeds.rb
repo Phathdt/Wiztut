@@ -55,3 +55,11 @@ tps = []
 end
 
 TeacherPost.import tps
+
+
+coures = [] 
+1000.times do
+  coures << Course.new(teacher_id: rand(100) + 1, student_id: rand(100) + 1)
+end
+
+Course.import coures

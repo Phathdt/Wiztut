@@ -18,7 +18,7 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
       render json: {
         message: t('.create_cp'),
         course_post: cp
-      }, status: 201
+      }, status: 200
     else
       render json: { message: cp.errors }, status: 406
     end

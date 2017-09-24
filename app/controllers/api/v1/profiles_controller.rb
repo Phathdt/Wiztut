@@ -5,7 +5,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
       render json: {
         message: t('.create_profile'),
         profile: profile
-      }, status: 201
+      }, status: 200
     else
       render json: { message: profile.errors }, status: 406
     end

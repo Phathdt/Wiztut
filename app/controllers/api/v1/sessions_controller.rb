@@ -7,7 +7,7 @@ class Api::V1::SessionsController < Api::V1::BaseApiController
       render json: {
         message: t('.sign_in_success'),
         data: { authentication_token: get_auth_token(user) }
-      }, status: 201
+      }, status: 200
     else
       render json: { message: t('.sign_in_fail') }, status: 406
     end

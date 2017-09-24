@@ -7,7 +7,7 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
       render json: {
         message: t('.create_user'),
         auth_token: get_auth_token(user)
-      }, status: 201
+      }, status: 200
     else
       render json: { message: user.errors }, status: 406
     end

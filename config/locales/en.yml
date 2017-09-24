@@ -34,4 +34,11 @@ en:
           update_tp: Updated Teacher Post
         destroy:
           destroy_tp: Destroyed Teacher Post
+      courses:
+        create:
+          create_course: Created Course
+        update:
+          update_course: Updated Course
+        destroy:
+          destroy_course: Destroyed Course
 
