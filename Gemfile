@@ -22,6 +22,7 @@ gem 'i18n'
 gem 'i18n-js', '>= 3.0.1'
 gem 'jbuilder', '~> 2.5'
 gem 'turbolinks', '~> 5'
+gem "activerecord-import"
 
 ## Authorization
 gem 'devise'

@@ -4,7 +4,7 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
 
   def index
-    cps = CoursePost.all.page(params[:page]).per(2)
+    cps = CoursePost.all.page(params[:page])
     render json: { course_posts: cps }, status: 200
   end
 
