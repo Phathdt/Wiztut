@@ -15,8 +15,8 @@ class CreateCoursePosts < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :course_posts, :sex_require,    unique: true
-    add_index :course_posts, :degree_require, unique: true
+    add_index :course_posts, :sex_require
+    add_index :course_posts, :degree_require
     add_index :course_posts, :user_id
     
   end

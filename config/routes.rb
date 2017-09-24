@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       post '/users/sign_in', to: 'sessions#create'
       delete '/users/sign_out', to: 'sessions#destroy'
       resources :profiles, only: [:create, :update]
-      resources :course_posts, only: [:create, :update, :destroy]
+      resources :course_posts, only: [:index, :show, :create, :update, :destroy]
     end
   end
 end

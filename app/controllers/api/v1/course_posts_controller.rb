@@ -1,5 +1,16 @@
 class Api::V1::CoursePostsController < Api::V1::BaseApiController
-  before_action :find_cp
+  before_action :find_cp, only: [:show, :update, :destroy]
+  before_action :authenticate_request!, except: [:index, :show]
+
+
+  def index
+    cps = CoursePost.all.page(params[:page]).per(2)
+    render json: { course_posts: cps }, status: 200
+  end
+
+  def show
+    render json: { course_post: @cp }, status: 200
+  end
 
   def create
     binding.pry
@@ -7,7 +18,7 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
     if cp.save
       render json: {
         message: t('.create_cp'),
-        profile: cp
+        course_post: cp
       }, status: 201
     else
       render json: { message: cp.errors }, status: 406
@@ -19,7 +30,7 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
     if @cp.save
       render json: {
         message: t('.update_cp'),
-        profile: @cp
+        course_post: @cp
       }, status: 200
     else
       render json: { message: @cp.errors }, status: 406
