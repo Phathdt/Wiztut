@@ -1,8 +1,8 @@
 en:
+  not_authenticated: Not Authenticated
+  dont_have_permission: "Oop! You dont have permission"
   api:
     v1:
-      base_api:
-        not_authenticated: Not Authenticated
       registrations:
         create:
           create_user: Created User
@@ -14,7 +14,6 @@ en:
           sign_in_fail: Password or Email not match
         destroy:
           sign_out_success: Sign Out Success
-          authentication_token_not_match: Authentication Token Not Match
       profiles:
         create:
           create_profile: Created Profile
