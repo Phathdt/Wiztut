@@ -14,9 +14,9 @@ class CreateTeacherPosts < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :teacher_posts, :address, unique: true
-    add_index :teacher_posts, :subject, unique: true
-    add_index :teacher_posts, :grade,   unique: true
-    add_index :teacher_posts, :user_id, unique: true
+    add_index :teacher_posts, :address
+    add_index :teacher_posts, :subject
+    add_index :teacher_posts, :grade
+    add_index :teacher_posts, :user_id
   end
 end
