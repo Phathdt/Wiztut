@@ -41,4 +41,9 @@ en:
           update_course: Updated Course
         destroy:
           destroy_course: Destroyed Course
+      ratings:
+        create:
+          create_rating: Created Rating
+        destroy:
+          destroy_rating: Destroyed Rating
 

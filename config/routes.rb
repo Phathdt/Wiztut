@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :course_posts, only: [:index, :show, :create, :update, :destroy]
       resources :teacher_posts, only: [:index, :show, :create, :update, :destroy]
       resources :courses, only: [:index, :show, :create, :update, :destroy]
+      resources :ratings, only: [:index, :create, :destroy]
     end
   end
 end

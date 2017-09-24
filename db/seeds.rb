@@ -57,9 +57,28 @@ end
 TeacherPost.import tps
 
 
-coures = [] 
+coures = []
 1000.times do
   coures << Course.new(teacher_id: rand(100) + 1, student_id: rand(100) + 1)
 end
 
 Course.import coures
+
+comments = [
+  "giáo viên dạy giỏi lắm các bạn ơi :D", "chưa bao giờ học tốt ntn", "đẹp trai quá",
+  "chỉ nhìn giáo viên không thèm học luôn ahihi", "mình học giỏi hơn nhờ thầy nè :)",
+  " giáo viên này dạy tốt mà rẻ nữa :D ", "các bạn muốn giỏi như mình ko nè",
+  "mình học thầy mà đi thi học sinh giỏi luôn á", "mình học thêm môn toán mà đi thi môn văn 10 điểm nè"
+]
+ratings = []
+
+User.all.each do |user|
+  user.courses_as_students.each do |c|
+    ratings << Rating.new(
+      rater_id: c.student_id, rated_id: c.teacher_id, rate: rand(5) + 1 ,
+      comment: comments.sample
+    )
+  end
+end
+
+Rating.import ratings
