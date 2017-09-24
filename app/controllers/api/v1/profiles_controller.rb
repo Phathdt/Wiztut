@@ -12,11 +12,13 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   def show
     user = User.joins(:profile).find(params[:id])
     profile = user.profile
+    rate = user.rate
     ratings = User.joins(:rateds).joins(:profile).where("ratings.id IN (?)", user.rating_ids)
     .select('users.id,profiles.name, users.email, ratings.comment')
     can_rating = user.courses_as_teachers.pluck(:student_id).include? current_user.id
     render json: {
       profile: profile,
+      rate: rate,
       ratings: ratings,
       can_rating: can_rating
     }, status: 200
