@@ -7,7 +7,6 @@ class CreateTeacherPosts < ActiveRecord::Migration[5.1]
       t.text    :time,    array:     true, default: []
       t.text    :address, array:     true, default: []
       t.decimal :salary,  precision: 8,    scale:   0
-      t.decimal :cost
       t.text    :note
       t.integer :user_id
 

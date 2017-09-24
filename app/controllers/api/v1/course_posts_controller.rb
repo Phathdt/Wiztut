@@ -13,7 +13,6 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
   end
 
   def create
-    binding.pry
     cp = current_user.course_posts.build(strong_params)
     if cp.save
       render json: {

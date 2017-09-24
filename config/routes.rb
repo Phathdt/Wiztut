@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       delete '/users/sign_out', to: 'sessions#destroy'
       resources :profiles, only: [:create, :update]
       resources :course_posts, only: [:index, :show, :create, :update, :destroy]
+      resources :teacher_posts, only: [:index, :show, :create, :update, :destroy]
     end
   end
 end
