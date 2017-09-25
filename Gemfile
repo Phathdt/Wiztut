@@ -30,13 +30,12 @@ gem 'jwt', '~>1.5.3'
 
 group :development do
   gem 'byebug'
-  gem 'faker'
+  gem 'faker', require: true
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'pry-nav'
   gem 'web-console', '>= 3.3.0'
   gem 'pry-rails'
   gem 'rails-erd', require: false
-  require 'faker'
 end
 
 ## Ruby version
