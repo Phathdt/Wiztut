@@ -1,5 +1,4 @@
 class Api::V1::ConversationsController < Api::V1::BaseApiController
-  # before_action :authenticate_request!, except: :index
 
   def index
     conversations = Conversation.involving(current_user).page(params[:page])

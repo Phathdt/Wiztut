@@ -20,18 +20,19 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
     user = User.find(params[:id])
     profile = user.profile
     rate = user.rate
-    ratings = Rating.joins("INNER JOIN profiles ON ratings.rater_id = profiles.user_id").where(rated_id:1)
-    .select('ratings.id, ratings.comment, ratings.rater_id, profiles.name as name, ratings.rate').includes(:rater)
+    ratings = Rating.joins("INNER JOIN profiles ON ratings.rater_id = profiles.user_id")
+    .where(rated_id:params[:id]).includes(:rater).select('ratings.id, ratings.comment,
+      ratings.rater_id, profiles.name as name, ratings.rate').order(created_at: :DESC ).first(10)
     can_rating = user.courses_as_teachers.pluck(:student_id).include? current_user.id
     render json: {
       profile: profile,
       rate: rate,
-      ratings: ratings.collect do |r| 
+      ratings: ratings.collect do |r|
         {
-          id: r.rater_id, 
-          name: r.name, 
-          email: r.rater.email, 
-          comment: r.comment, 
+          id: r.rater_id,
+          name: r.name,
+          email: r.rater.email,
+          comment: r.comment,
           rate: r.rate
         }
       end ,
