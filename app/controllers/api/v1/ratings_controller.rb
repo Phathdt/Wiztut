@@ -1,26 +1,6 @@
 class Api::V1::RatingsController < Api::V1::BaseApiController
   before_action :find_rating, only: [:destroy]
-  before_action :authenticate_request!, except: :index
   before_action :check_permission_rate, only: [ :create, :destroy]
-
-  def index
-    ratings = Rating.joins("INNER JOIN profiles ON ratings.rater_id = profiles.user_id")
-    .where(rated_id:1).includes(:rater).select('ratings.id, ratings.comment,
-      ratings.rater_id, profiles.name as name, ratings.rate')
-    .order(created_at: :DESC ).page(params[:page])
-
-    render json: {
-      ratings: ratings.collect do |r|
-        {
-          id: r.rater_id,
-          name: r.name,
-          email: r.rater.email,
-          comment: r.comment,
-          rate: r.rate
-        }
-      end ,
-    }, status: 200
-  end
 
   def create
     # delete old rating if exist

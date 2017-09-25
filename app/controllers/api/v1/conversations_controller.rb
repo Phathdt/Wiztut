@@ -7,7 +7,7 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
 
   def show
     conversation = Conversation.find(params[:id])
-    messages = conversation.messages
+    messages = conversation.messages.order(created_at: :DESC ).page(params[:page])
 
     render json: {
       conversation: conversation,

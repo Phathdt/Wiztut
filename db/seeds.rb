@@ -58,7 +58,7 @@ TeacherPost.import tps
 
 
 coures = []
-1000.times do
+10000.times do
   coures << Course.new(teacher_id: rand(100) + 1, student_id: rand(100) + 1)
 end
 
@@ -82,3 +82,30 @@ User.all.each do |user|
 end
 
 Rating.import ratings
+
+conversations = []
+
+1000.times do
+  conversations << Conversation.new(sender_id: rand(100) + 1, recipient_id: rand(100) + 1) 
+end
+
+Conversation.import conversations
+
+message = [
+  "Chào thầy, thầy có khỏe không", "khỏe lắm em ơi", "em muốn gì", "em muốn thầy dạy cho em học ạ", 
+  "ok pede", "em học môn nào?", "môn thể dục thầy ơi", "thầy đâu có dạy thể dục đâu",
+  "vậy môn gì cũng được", "ok vậy môn tiếng anh ha", "em muốn học môn Toán thầy ơi", 
+  "vậy em đăng ký đi lớp đi", "ok thầy"
+]
+
+messages = []
+
+Conversation.all.each do |c|
+  users = [c.sender_id, c.recipient_id]
+  rand(10).times do
+    messages << Message.new(body: message.sample, conversation_id: c.id, user_id: users.sample)
+  end
+end
+
+Message.import messages
+
