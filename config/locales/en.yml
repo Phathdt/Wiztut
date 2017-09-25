@@ -45,4 +45,14 @@ en:
           create_rating: Created Rating
         destroy:
           destroy_rating: Destroyed Rating
+      conversations:
+        create:
+          create_conversation: Created Convesation
+        destroy:
+          destroy_conversation: Destroyed Conversation
+      messages:
+        create:
+          create_message: Created Message
+        destroy:
+          destroy_message: Destroyed Message
 

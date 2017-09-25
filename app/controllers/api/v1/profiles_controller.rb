@@ -2,10 +2,17 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   before_action :authenticate_request!, except: [:index]
 
   def index
-    # users = User.all.order(rate: :desc).includes(:profile).page(params[:page]).joins(:profile)
-    users = User.where(teacher: true).joins(:profile).select(:id, :name, :school, :degree, :rate).order(rate: :desc).page(params[:page])
+    users = User.includes(:profile).order(rate: :desc).page(params[:page])
     render json: {
-      users: users
+      users: users.collect do |u|
+        {
+          id: u.id,
+          name: u.profile.name,
+          school: u.profile.school,
+          degree: u.profile.degree,
+          rate: u.rate
+        }
+      end
     }, status: 200
   end
 
