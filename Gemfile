@@ -36,6 +36,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'pry-rails'
   gem 'rails-erd', require: false
+  require 'faker'
 end
 
 ## Ruby version
