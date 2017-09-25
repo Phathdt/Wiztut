@@ -10,7 +10,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   end
 
   def show
-    user = User.joins(:profile).find(params[:id])
+    user = User.find(params[:id])
     profile = user.profile
     rate = user.rate
     ratings = User.joins(:rateds).joins(:profile).where("ratings.id IN (?)", user.rating_ids)

@@ -4,13 +4,19 @@ class Api::V1::RatingsController < Api::V1::BaseApiController
 
   # còn chưa làm logic cho rating , cần viết thêm service rating permission
   def index
-    #  can them code chỉ chọn những rating của mình thôi , order by ... 
-    ratings = Rating.all.page(params[:page])
+    ratings = User.joins(:rateds).joins(:profile).where("ratings.id IN (?)", User.find(params[:profile_id]).rating_ids)
+      .select('users.id,profiles.name, users.email, ratings.comment')
+      .order("ratings.updated_at DESC").page(params[:page])
+
     render json: { ratings: ratings }, status: 200
   end
 
   def create
-  rating = Rating.new(strong_params)
+    # delete old rating if exist
+    old_rating = Rating.find_by(rater_id: strong_params[:rater_id], rated_id: strong_params[:rated_id])
+    old_rating.destroy if old_rating.nil?
+    
+    rating = Rating.new(strong_params)
     if rating.save
       render json: {
         message: t('.create_rating'),
