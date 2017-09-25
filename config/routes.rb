@@ -15,7 +15,8 @@ Rails.application.routes.draw do
       resources :teacher_posts, only: [:index, :show, :create, :update, :destroy]
       resources :courses, only: [:index, :show, :create, :update, :destroy]
       resources :ratings, only: [:create, :destroy]
-      resources :conversations, only: [:create, :destroy]
+      resources :conversations, only: [:index, :show, :create, :destroy]
+      resources :messages, only: [:create, :destroy]
     end
   end
 end

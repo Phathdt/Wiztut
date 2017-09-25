@@ -1,20 +1,32 @@
 class Api::V1::ConversationsController < Api::V1::BaseApiController
-  before_action :authenticate_request!, except: :index
-  
+  # before_action :authenticate_request!, except: :index
+
   def index
-      
+    conversations = Conversation.involving(current_user).page(params[:page])
+    render json: { conversations: conversations}, status: 200
+  end
+
+  def show
+    conversation = Conversation.find(params[:id])
+    messages = conversation.messages
+
+    render json: {
+      conversation: conversation,
+      messages: messages
+    }, status: 200
   end
 
   def create
-    c = Conversation.new(strong_params, sender_id: current_user.id)
-    if c.save
-      render json: {
-        message: t('.create_conversation'),
-        conversation: c
-      }, status: 200
+    if Conversation.between(strong_params[:sender_id],strong_params[:recipient_id]).present?
+      conversation = Conversation.between(strong_params[:sender_id],strong_params[:recipient_id]).first
     else
-      render json: { message: c.errors }, status: 406
+      conversation = Conversation.create!(strong_params)
     end
+
+    render json: {
+      message: t('.create_conversation'), conversation: conversation
+    }, status: 200
+
   end
 
   def destroy
