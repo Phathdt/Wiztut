@@ -43,7 +43,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   end
 
   def create
-    profile = current_user.build_profile(strong_params)
+    profile = current_user.profile || current_user.build_profile(strong_params)
     if profile.save
       render json: {
         message: t('.create_profile'),
