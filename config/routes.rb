@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       delete '/users', to: 'registrations#destroy'
       post '/users/sign_in', to: 'sessions#create'
       delete '/users/sign_out', to: 'sessions#destroy'
-      resources :profiles, only: [:index, :show, :create, :update]
+      resources :profiles, only: [:index, :show, :create]
+      patch '/profiles', to: 'profiles#update'
       resources :course_posts, only: [:index, :show, :create, :update, :destroy]
       resources :teacher_posts, only: [:index, :show, :create, :update, :destroy]
       resources :courses, only: [:index, :show, :create, :update, :destroy]

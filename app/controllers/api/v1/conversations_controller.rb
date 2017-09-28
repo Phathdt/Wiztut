@@ -7,7 +7,7 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
 
   def show
     conversation = Conversation.find(params[:id])
-    messages = conversation.messages.order(created_at: :DESC ).page(params[:page])
+    messages = conversation.messages.order( created_at: :DESC ).page(params[:page])
 
     render json: {
       conversation: conversation,
@@ -16,10 +16,10 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
   end
 
   def create
-    if Conversation.between(strong_params[:sender_id],strong_params[:recipient_id]).present?
-      conversation = Conversation.between(strong_params[:sender_id],strong_params[:recipient_id]).first
+    if Conversation.between( current_user.id, strong_params[:recipient_id] ).present?
+      conversation = Conversation.between( current_user.id, strong_params[:recipient_id] ).first
     else
-      conversation = Conversation.create!(strong_params)
+      conversation = Conversation.create( strong_params.merge({ sender_id: current_user.id}))
     end
 
     render json: {
@@ -36,6 +36,6 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
 
   private
   def strong_params
-    params.require(:conversations).permit( :sender_id, :recipient_id)
+    params.require(:conversations).permit( :recipient_id)
   end
 end
