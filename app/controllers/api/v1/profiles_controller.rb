@@ -28,6 +28,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
     can_rating = user.courses_as_teachers.pluck(:student_id).include? current_user.id
     render json: {
       profile: profile,
+      avatar: profile.avatar.url,
       rate:    user.rate,
       can_rating: can_rating,
       ratings: ratings.collect do |r|
@@ -71,7 +72,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   def strong_params
     params.require(:profiles).permit(
       :name, :dob, :sex, :school, :degree, :graduation_year, :salary,
-      :about_me, :phone, :grades, :subjects
+      :about_me, :phone, :grades, :subjects, :avatar
     )
   end
 end

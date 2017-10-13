@@ -28,6 +28,9 @@ gem "activerecord-import"
 gem 'devise'
 gem 'jwt', '~>1.5.3'
 
+## Upload Image
+gem 'paperclip'
+
 group :development do
   gem 'byebug'
   gem 'faker', require: true
