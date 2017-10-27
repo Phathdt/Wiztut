@@ -12,18 +12,20 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   end
 
   def create
-    tp = current_user.teacher_posts.build(strong_params)
-    if tp.save
+    @tp = TeacherPost.new(strong_params.merge({ user_id: current_user.id}))
+    authorize @tp
+    if @tp.save
       render json: {
         message: t('.create_tp'),
-        teacher_post: tp
+        teacher_post: @tp
       }, status: 200
     else
-      render json: { message: tp.errors }, status: 406
+      render json: { message: @tp.errors }, status: 406
     end
   end
 
   def update
+    authorize @tp
     @tp.update(strong_params)
     if @tp.save
       render json: {
@@ -36,6 +38,7 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   end
 
   def destroy
+    authorize @tp
     @tp.destroy
     render json: { message: t('.destroy_tp') }, status: 200
   end
@@ -45,9 +48,10 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   def find_tp
     @tp = TeacherPost.find(params[:id])
   end
+  
   def strong_params
     params.require(:teacher_posts).permit(
-      :title, :grade, :subject, :time, :address, :salary, :cost, :note
+      :title, :grade, :subject, :time, :address, :salary, :cost, :note, :status
     )
   end
 end

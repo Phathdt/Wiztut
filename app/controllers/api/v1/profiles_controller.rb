@@ -57,6 +57,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
 
   def update
     profile = current_user.profile
+    authorize profile
     profile.update(strong_params)
     if profile.save
       render json: {

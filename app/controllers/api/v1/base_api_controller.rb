@@ -1,4 +1,7 @@
 class Api::V1::BaseApiController < ActionController::Base
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   before_action :authenticate_request!
   attr_reader :current_user
 
@@ -31,5 +34,10 @@ class Api::V1::BaseApiController < ActionController::Base
 
   def get_auth_token(user)
     Authenticate::JsonWebToken.encode({user_id:user.id, email: user.email})
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    render json: { errors: I18n.t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default) }, status: :unauthorized
   end
 end
