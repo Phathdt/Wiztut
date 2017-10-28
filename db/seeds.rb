@@ -1,6 +1,8 @@
 Faker::Config.locale = :vi
 
 User.create(email: "admin@gmail.com", password: "123456", password_confirmation: "123456", admin: true)
+User.create(email: "teacher@gmail.com", password: "123456", password_confirmation: "123456", teacher: true)
+User.create(email: "userr@gmail.com", password: "123456", password_confirmation: "123456")
 
 ActiveRecord::Base.transaction do
   99.times do
@@ -32,7 +34,7 @@ cps = []
   params = {
     title: lophoc.sample, grade: rand(12) + 1, subject: rand(8) + 1, time: rand(6) + 1,
     address: rand(21) + 1, real_address: Faker::Address.street_address, salary: (rand 2000 + 1000 ) * 1000,
-    sex_require: rand(3) , degree_require: rand(5) , note: Faker::StarWars.quote, user_id: rand(100) +1
+    sex_require: rand(3) , degree_require: rand(5) , note: Faker::StarWars.quote, user_id: rand(100) +1, phone: Faker::PhoneNumber.phone_number, frequency: rand(5) + 1
   }
   cps << CoursePost.new(params)
 end

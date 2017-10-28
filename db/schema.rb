@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20171027164535) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "note"
-    t.boolean "status"
+    t.boolean "status", default: true
     t.text "phone"
     t.integer "frequency"
     t.index ["degree_require"], name: "index_course_posts_on_degree_require"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20171027164535) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "status"
+    t.boolean "status", default: true
     t.index ["address"], name: "index_teacher_posts_on_address"
     t.index ["grade"], name: "index_teacher_posts_on_grade"
     t.index ["subject"], name: "index_teacher_posts_on_subject"
