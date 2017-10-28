@@ -14,7 +14,6 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
   def create
     @cp = CoursePost.new(strong_params.merge({ user_id: current_user.id}))
-    authorize @cp
     if @cp.save
       render json: {
         message: t('.create_cp'),

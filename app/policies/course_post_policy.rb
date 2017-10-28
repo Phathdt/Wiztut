@@ -5,10 +5,6 @@ class CoursePostPolicy < ApplicationPolicy
     @record = record
   end
   
-  def create?
-    user.admin? || user.teacher?
-  end
-
   def update?
     user.admin? || record.user_id == user.id
   end
