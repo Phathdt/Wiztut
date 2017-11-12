@@ -28,8 +28,14 @@ gem "activerecord-import"
 gem 'devise'
 gem 'jwt', '~>1.5.3'
 
+## Authority
+gem "pundit"
+
 ## Upload Image
 gem 'paperclip'
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+gem "figaro"
 
 group :development do
   gem 'byebug'
