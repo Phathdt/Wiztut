@@ -9,7 +9,11 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
   end
 
   def show
-    render json: { course_post: @cp }, status: 200
+    render json: {
+      course_post: @cp,
+      profile_id: @cp.user.profile.try(:id),
+      profile_name: @cp.user.profile.try(:name)
+      }, status: 200
   end
 
   def create
