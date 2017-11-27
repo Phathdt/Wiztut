@@ -1,7 +1,6 @@
 class Api::V1::CoursesController < Api::V1::BaseApiController
   before_action :authenticate_request!
   before_action :find_course, only: [:show, :update, :destroy]
-  before_action :check_permission_for_course, only: [:update, :destroy]
 
   def index
     courses = Course.get_your_course(current_user.id).order(updated_at: :desc).page(params[:page])
@@ -25,6 +24,7 @@ class Api::V1::CoursesController < Api::V1::BaseApiController
   end
 
   def update
+    authorize @course
     @course.update(strong_params)
     if @course.save
       render json: {
@@ -37,6 +37,7 @@ class Api::V1::CoursesController < Api::V1::BaseApiController
   end
 
   def destroy
+    authorize @course
     @course.destroy
     render json: { message: t('.destroy_course') }, status: 200
   end
