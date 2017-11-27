@@ -7,9 +7,9 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
       users: users.collect do |u|
         {
           id:     u.id,
-          name:   u.profile.name,
-          school: u.profile.school,
-          degree: u.profile.degree,
+          name:   u.profile&.name,
+          school: u.profile&.school,
+          degree: u.profile&.degree,
           rate:   u.rate
         }
       end
