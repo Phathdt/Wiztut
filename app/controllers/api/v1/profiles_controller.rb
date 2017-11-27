@@ -24,7 +24,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
     .where(rated_id:params[:id]).includes(:rater).select('ratings.id, ratings.comment,
       ratings.rater_id, profiles.name as name, ratings.rate')
     .order(created_at: :DESC ).page(params[:page])
-    
+
     can_rating = user.courses_as_teachers.pluck(:student_id).include? current_user.id
     render json: {
       profile: profile,
@@ -48,6 +48,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
     if profile.save
       render json: {
         message: t('.create_profile'),
+        user_id: profile.user.id,
         profile: profile
       }, status: 200
     else
