@@ -1,6 +1,6 @@
 class Api::V1::BaseApiController < ActionController::Base
   include Pundit
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_permission
 
   before_action :authenticate_request!
   attr_reader :current_user
@@ -36,8 +36,8 @@ class Api::V1::BaseApiController < ActionController::Base
     Authenticate::JsonWebToken.encode({user_id:user.id, email: user.email})
   end
 
-  def user_not_authorized(exception)
+  def user_not_permission(exception)
     policy_name = exception.policy.class.to_s.underscore
-    render json: { errors: I18n.t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default) }, status: :unauthorized
+    render json: { errors: I18n.t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default) }, status: 406
   end
 end
