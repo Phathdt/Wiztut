@@ -37,6 +37,13 @@ gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 gem "figaro"
 
+## Deploy
+gem "capistrano"
+gem "capistrano3-puma"
+gem "capistrano-rails", require: false
+gem "capistrano-bundler", require: false
+gem "capistrano-rvm"
+
 group :development do
   gem 'byebug'
   gem 'faker', require: true
