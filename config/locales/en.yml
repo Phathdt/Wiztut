@@ -14,7 +14,12 @@ en:
       destroy?: 'You cannot destroy this course!'
     profile_policy:
       update?: 'You cannot edit this profile!'
+    conversation_policy:
+      create?: 'You cannot create conversation because you dont have a profile'
+      destroy?: 'You cannot destroy this conversation!'
   not_authenticated: Not Authenticated
+  profile:
+    has_present: 'Profile has present, cannot create new profile for this user'
   record_not_found: 'Record not found'
   dont_have_permission: "Oop! You dont have permission"
   api:

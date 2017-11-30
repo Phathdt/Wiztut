@@ -2,14 +2,17 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   before_action :authenticate_request!, except: [:index]
 
   def index
-    users = User.includes(:profile).order(rate: :desc).page(params[:page])
+    users = User.joins(:profile).where("profiles.id IS NOT NULL").order(rate: :desc).page(params[:page])
     render json: {
       users: users.collect do |u|
         {
           id:     u.id,
           name:   u.profile&.name,
+          avatar: u.profile&.avatar&.url,
           school: u.profile&.school,
           degree: u.profile&.degree,
+          about_me: u.profile&.about_me,
+          is_teacher: u.teacher?,
           rate:   u.rate
         }
       end
@@ -32,27 +35,32 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
       rate:    user.rate,
       can_rating: can_rating,
       ratings: ratings.collect do |r|
-      {
-        id:      r.rater_id,
-        name:    r.name,
-        email:   r.rater.email,
-        comment: r.comment,
-        rate:    r.rate
-      }
+        {
+          id:      r.rater_id,
+          name:    r.name,
+          email:   r.rater.email,
+          comment: r.comment,
+          rate:    r.rate
+        }
       end
     }, status: 200
   end
 
   def create
     profile = current_user.profile || current_user.build_profile(strong_params)
-    if profile.save
-      render json: {
-        message: t('.create_profile'),
-        user_id: profile.user.id,
-        profile: profile
-      }, status: 200
+
+    if profile.new_record?
+      if profile.save
+        render json: {
+          message: t('.create_profile'),
+          user_id: profile.user.id,
+          profile: profile
+        }, status: 200
+      else
+        render json: { message: profile.errors }, status: 406
+      end
     else
-      render json: { message: profile.errors }, status: 406
+      render json: { errors: I18n.t('profile.has_present') }, status: 406
     end
   end
 
