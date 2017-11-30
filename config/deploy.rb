@@ -8,6 +8,7 @@ set :linked_files, %w(config/database.yml config/application.yml)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads)
 set :keep_releases, 5
 set :rvm_type, :user
+set :ssh_options, { forward_agent: true, user: "wiztut", keys: %w(~/.ssh/wiztut) }
 
 set :puma_rackup, -> {File.join(current_path, "config.ru")}
 set :puma_state, -> {"#{shared_path}/tmp/pids/puma.state"}
@@ -22,5 +23,4 @@ set :puma_threads, [0, 8]
 set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
-set :puma_preload_app, false
-set :ssh_options, { forward_agent: true, user: "wiztut", keys: %w(~/.ssh/wiztut) }
+set :puma_preload_app, true

@@ -1,7 +1,7 @@
 set :stage, :production
 set :rails_env, :production
 set :deploy_to, "/deploy/apps/wiztut"
-set :branch, :config_deploy
+set :branch, "master"
 server "52.91.142.135", user: "wiztut", roles: %w(web app db)
 # server-based syntax
 # ======================
