@@ -5,6 +5,12 @@ class ConversationPolicy < ApplicationPolicy
     @record = record
   end
 
+  def show?
+    user.admin? ||
+      record.sender_id == user.id ||
+      record.recipient_id == user.id
+  end
+
   def create?
     user.profile
   end
@@ -12,6 +18,6 @@ class ConversationPolicy < ApplicationPolicy
   def destroy?
     user.admin? ||
       record.sender_id == user.id ||
-      record.recipient_id = user.id
+      record.recipient_id == user.id
   end
 end

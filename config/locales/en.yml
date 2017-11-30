@@ -15,8 +15,12 @@ en:
     profile_policy:
       update?: 'You cannot edit this profile!'
     conversation_policy:
+      show?: 'You can not read this conversation bycause youre stupid'
       create?: 'You cannot create conversation because you dont have a profile'
       destroy?: 'You cannot destroy this conversation!'
+    rating_policy:
+      create?: 'You cannot create rating because you is not a student'
+      destroy?: 'You cannot destroy this rating!'
   not_authenticated: Not Authenticated
   profile:
     has_present: 'Profile has present, cannot create new profile for this user'
