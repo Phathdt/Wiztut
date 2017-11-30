@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
-  belongs_to :user , foreign_key: "teacher_id"
-  belongs_to :user , foreign_key: "student_id"
+  belongs_to :teacher , foreign_key: "teacher_id", class_name: 'User'
+  belongs_to :student , foreign_key: "student_id", class_name: 'User'
   validates_uniqueness_of :teacher_id, scope: [:student_id]
   enum status:  %i(waiting_brand_approval success canceled)
 

@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :rateds, class_name: "Rating", foreign_key: "rater_id", dependent: :destroy
 
   has_many :conversations, :foreign_key => :sender_id, dependent: :destroy
+
+  validates :rate, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
   # some scope user
   #  tai sao lai can select ? 
   # default_scope { where(active: true).select(:id, :email, :teacher, :rate) }
