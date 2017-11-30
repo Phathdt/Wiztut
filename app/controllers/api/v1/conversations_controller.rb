@@ -1,8 +1,9 @@
 class Api::V1::ConversationsController < Api::V1::BaseApiController
 
   def index
-    conversations = Conversation.involving(current_user).page(params[:page])
-    render json: { conversations: conversations}, status: 200
+    @conversations = Conversation.involving(current_user).joins(:sender).joins(:recipient).page(params[:page])
+    @current_user = current_user
+    render 'conversation/index'
   end
 
   def show
@@ -16,10 +17,13 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
   end
 
   def create
+    conversation = Conversation.new(strong_params.merge({ sender_id: current_user.id}))
+    authorize conversation
+
     if Conversation.between( current_user.id, strong_params[:recipient_id] ).present?
       conversation = Conversation.between( current_user.id, strong_params[:recipient_id] ).first
     else
-      conversation = Conversation.create( strong_params.merge({ sender_id: current_user.id}))
+      conversation.save
     end
 
     render json: {
@@ -29,8 +33,10 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
   end
 
   def destroy
-    c = Conversation.find(params[:id])
-    c.destroy
+    conversation = Conversation.find(params[:id])
+    authorize conversation
+
+    conversation.destroy
     render json: { message: t('.destroy_conversation') }, status: 200
   end
 
