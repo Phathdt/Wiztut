@@ -36,10 +36,11 @@ gem 'paperclip'
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 gem "figaro"
+gem 'faker', require: true
+
 
 group :development do
   gem 'byebug'
-  gem 'faker', require: true
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'pry-nav'
   gem 'web-console', '>= 3.3.0'
