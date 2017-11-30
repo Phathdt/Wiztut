@@ -216,6 +216,9 @@ GEM
       railties (>= 4.2.0, < 5.3)
     ruby-graphviz (1.2.3)
     ruby_dep (1.5.0)
+    rvm1-capistrano3 (1.4.0)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -303,6 +306,7 @@ DEPENDENCIES
   pundit
   rails (~> 5.1.3)
   rails-erd
+  rvm1-capistrano3
   sass-rails (~> 5.0)
   slim-rails
   therubyracer

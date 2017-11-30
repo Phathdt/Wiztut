@@ -3,6 +3,15 @@ set :rails_env, :production
 set :deploy_to, "/deploy/apps/wiztut"
 set :branch, "master"
 server "52.91.142.135", user: "wiztut", roles: %w(web app db)
+set :ssh_options, {
+  keys: %w(~/.ssh/wiztut),
+  forward_agent: true,
+  port: 22,
+  user: 'wiztut',
+}
+
+
+# Define server(s)
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
