@@ -15,7 +15,7 @@ class Conversation < ApplicationRecord
   end
 
   def opposite current_user_id
-    opposite_id = sender_id == current_user_id ? sender_id : recipient_id
+    opposite_id = sender_id == current_user_id ? recipient_id : sender_id
     User.find(opposite_id).profile
   end
 end

@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
   enum sex: [ :sex_not_known, :man, :woman]
 
   has_attached_file :avatar,
-    default_url: "/assets/default_icon.png",
+    default_url: 'https://s3-ap-southeast-1.amazonaws.com/wiztut/avatars/avatar.png',
     path: ":attachment/:id/:style.:extension",
     url: ":s3_alias_url",
     s3_permissions: "public-read",
