@@ -3,7 +3,7 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   before_action :authenticate_request!, except: [:index, :show]
 
   def index
-    tps = TeacherPost.all.page(params[:page])
+    tps = TeacherPost.active.order('created_at DESC').page(params[:page])
     render json: { teacher_posts: tps }, status: 200
   end
 
@@ -48,7 +48,7 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   def find_tp
     @tp = TeacherPost.find(params[:id])
   end
-  
+
   def strong_params
     params.require(:teacher_posts).permit(
       :title, :grade, :subject, :time, :address, :salary, :cost, :note, :status
