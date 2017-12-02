@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   validates :rate, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
 
-  default_scope { where("profiles.id IS NOT NULL")}
+  # default_scope { where("profiles.id IS NOT NULL")}
   scope :search, -> ( name, current_user) do
     joins(:profile).where('lower(profiles.name) like ?', "%#{name}%").where.not("users.id": current_user.id)
   end

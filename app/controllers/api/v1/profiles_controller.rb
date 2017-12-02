@@ -1,9 +1,9 @@
 class Api::V1::ProfilesController < Api::V1::BaseApiController
-  before_action :authenticate_request!, except: [:index]
+  before_action :authenticate_request!
 
   def index
-    users = User.joins(:profile).order(rate: :desc).page(params[:page])
-    users = users.search(params["search"]) if params["search"]
+    users = User.includes(:profile).order(rate: :desc).page(params[:page])
+    users = users.search(params["search"], current_user) if params["search"]
     render json: {
       users: users.collect do |u|
         {
