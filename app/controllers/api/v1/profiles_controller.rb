@@ -3,7 +3,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
 
   def index
     users = User.includes(:profile).order(rate: :desc).page(params[:page])
-    users = users.search(params["search"], current_user) if params["search"]
+    users = users.search(params["name"], current_user) if params["name"]
     render json: {
       users: users.collect do |u|
         {
