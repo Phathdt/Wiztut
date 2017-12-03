@@ -3,7 +3,7 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   before_action :authenticate_request!, except: [:index, :show]
 
   def index
-    @tps = TeacherPost.active.order('created_at DESC').page(params[:page])
+    @tps = TeacherPost.includes(:profile).active.order('created_at DESC').page(params[:page])
     render 'teacher_post/index'
   end
 
