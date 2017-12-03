@@ -4,8 +4,8 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
 
   def index
-    cps = CoursePost.active.order('created_at DESC').page(params[:page])
-    render json: { course_posts: cps }, status: 200
+    @cps = CoursePost.active.includes(:profile).order('created_at DESC').page(params[:page])
+    render 'course_post/index'
   end
 
   def show
