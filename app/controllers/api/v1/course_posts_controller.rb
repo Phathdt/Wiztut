@@ -5,19 +5,20 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
   def index
     @cps = CoursePost.active.includes(:profile).order('created_at DESC').page(params[:page])
+    @cps = @cps.search(params[:title]) if params[:title]
     render 'course_post/index'
   end
 
   def show
     render json: {
       course_post: @cp,
-      profile_id: @cp.user.profile.try(:id),
-      profile_name: @cp.user.profile.try(:name)
+      profile_id: @cp.owner.id,
+      profile_name: @cp.owner.name
       }, status: 200
   end
 
   def create
-    @cp = CoursePost.new(strong_params.merge({ user_id: current_user.id}))
+    @cp = CoursePost.new(strong_params.merge({ user_id: current_user.id}).to_h.compact)
     if @cp.save
       render json: {
         message: t('.create_cp'),
@@ -58,5 +59,9 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
       :title, :grade, :subject, :time,:address, :real_address, :salary,
       :sex_require, :degree_require, :note, :status, :phone, :frequency
     )
+  end
+
+  def search_params
+    params.permit(:title)
   end
 end

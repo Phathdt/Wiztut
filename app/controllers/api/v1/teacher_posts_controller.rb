@@ -8,11 +8,15 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
   end
 
   def show
-    render json: { teacher_post: @tp }, status: 200
+    render json: {
+      teacher_post: @tp,
+      profile_id: @tp.owner.id,
+      profile_name: @tp.owner.name
+      }, status: 200
   end
 
   def create
-    @tp = TeacherPost.new(strong_params.merge({ user_id: current_user.id}))
+    @tp = TeacherPost.new(strong_params.merge({ user_id: current_user.id}).to_h.compact)
     authorize @tp
     if @tp.save
       render json: {

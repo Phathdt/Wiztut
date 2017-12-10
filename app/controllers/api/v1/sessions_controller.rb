@@ -6,7 +6,15 @@ class Api::V1::SessionsController < Api::V1::BaseApiController
     if user && user.valid_password?( strong_params[:password])
       render json: {
         message: t('.sign_in_success'),
-        data: { authentication_token: get_auth_token(user) }
+        data: {
+          id: user.id,
+          email: user.email,
+          admin: user.admin,
+          active: user.active,
+          teacher: user.teacher,
+          rate: user.rate,
+          authentication_token: get_auth_token(user)
+        }
       }, status: 200
     else
       render json: { message: t('.sign_in_fail') }, status: 406

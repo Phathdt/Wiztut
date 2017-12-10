@@ -35,6 +35,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
       avatar: profile.avatar.url,
       rate:    user.rate,
       can_rating: can_rating,
+      is_teacher: user.teacher?,
       ratings: ratings.collect do |r|
         {
           id:      r.rater_id,
@@ -85,5 +86,9 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
       :name, :dob, :sex, :school, :degree, :graduation_year, :salary,
       :about_me, :phone, :grades, :subjects, :avatar
     )
+  end
+
+  def filter_params
+    params.slice(:sex, :salary)
   end
 end

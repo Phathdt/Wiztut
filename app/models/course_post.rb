@@ -7,9 +7,7 @@ class CoursePost < ApplicationRecord
 
   scope :active, -> { where(status: true) }
 
-  def search(search_params)
-    CoursePost.where(search_params)
-  end
+  scope :search, ->(title){ where('lower(title) like ?', "%#{title}%")}
 
   def owner
     profile.first

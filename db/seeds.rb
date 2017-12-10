@@ -2,7 +2,7 @@ Faker::Config.locale = :vi
 
 User.create(email: "admin@gmail.com", password: "123456", password_confirmation: "123456", admin: true)
 User.create(email: "teacher@gmail.com", password: "123456", password_confirmation: "123456", teacher: true)
-User.create(email: "userr@gmail.com", password: "123456", password_confirmation: "123456")
+User.create(email: "student@gmail.com", password: "123456", password_confirmation: "123456")
 
 ActiveRecord::Base.transaction do
   99.times do
@@ -89,15 +89,15 @@ Rating.import ratings
 conversations = []
 
 1000.times do
-  conversations << Conversation.new(sender_id: rand(100) + 1, recipient_id: rand(100) + 1) 
+  conversations << Conversation.new(sender_id: rand(100) + 1, recipient_id: rand(100) + 1)
 end
 
 Conversation.import conversations
 
 message = [
-  "Chào thầy, thầy có khỏe không", "khỏe lắm em ơi", "em muốn gì", "em muốn thầy dạy cho em học ạ", 
+  "Chào thầy, thầy có khỏe không", "khỏe lắm em ơi", "em muốn gì", "em muốn thầy dạy cho em học ạ",
   "ok pede", "em học môn nào?", "môn thể dục thầy ơi", "thầy đâu có dạy thể dục đâu",
-  "vậy môn gì cũng được", "ok vậy môn tiếng anh ha", "em muốn học môn Toán thầy ơi", 
+  "vậy môn gì cũng được", "ok vậy môn tiếng anh ha", "em muốn học môn Toán thầy ơi",
   "vậy em đăng ký đi lớp đi", "ok thầy"
 ]
 
