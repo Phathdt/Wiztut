@@ -74,6 +74,6 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
   end
 
   def filter_params
-    params.permit(:grade ,:subject ,:address ,:salary ,:degree_require)
+    params.slice(:grade ,:subject ,:address ,:salary ,:degree_require)
   end
 end
