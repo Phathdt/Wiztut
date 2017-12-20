@@ -4,6 +4,7 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
 
   def index
     @tps = TeacherPost.includes(:profile).active.order('created_at DESC').page(params[:page])
+    @cps = @cps.search(params[:title]) if search_params
 
     if filter_params
       @tps = @tps.where(grade: filter_params[:grade]) if filter_params[:grade]
@@ -64,6 +65,10 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
     params.require(:teacher_posts).permit(
       :title, :grade, :subject, :time, :address, :salary, :cost, :note, :status
     )
+  end
+
+  def search_params
+    params.permit(:title)
   end
 
   def filter_params
