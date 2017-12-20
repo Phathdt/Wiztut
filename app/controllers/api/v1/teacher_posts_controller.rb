@@ -4,6 +4,13 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
 
   def index
     @tps = TeacherPost.includes(:profile).active.order('created_at DESC').page(params[:page])
+
+    if filter_params
+      @tps = @tps.where(grade: filter_params[:grade]) if filter_params[:grade]
+      @tps = @tps.where(subject: filter_params[:subject]) if filter_params[:subject]
+      @tps = @tps.where('salary <= ?', filter_params[:salary]) if filter_params[:salary]
+      @tps = @tps.where("? = ANY (address)",filter_params[:address]) if filter_params[:address]
+    end
     render 'teacher_post/index'
   end
 
@@ -57,5 +64,9 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
     params.require(:teacher_posts).permit(
       :title, :grade, :subject, :time, :address, :salary, :cost, :note, :status
     )
+  end
+
+  def filter_params
+    params.permit(:grade ,:subject ,:address ,:salary)
   end
 end
