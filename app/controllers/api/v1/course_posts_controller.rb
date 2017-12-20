@@ -5,7 +5,15 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
   def index
     @cps = CoursePost.active.includes(:profile).order('created_at DESC').page(params[:page])
-    @cps = @cps.search(params[:title]) if params[:title]
+    @cps = @cps.search(params[:title]) if search_params
+    # filter
+    if filter_params
+      @cps = @cps.where(grade: filter_params[:grade]) if filter_params[:grade]
+      @cps = @cps.where(subject: filter_params[:subject]) if filter_params[:subject]
+      @cps = @cps.where(address: filter_params[:address]) if filter_params[:address]
+      @cps = @cps.where('salary <= ?', filter_params[:salary]) if filter_params[:salary]
+      @cps = @cps.where(degree_require: filter_params[:degree_require]) if filter_params[:degree_require]
+    end
     render 'course_post/index'
   end
 
@@ -63,5 +71,9 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
   def search_params
     params.permit(:title)
+  end
+
+  def filter_params
+    params.permit(:grade ,:subject ,:address ,:salary ,:degree_require)
   end
 end
