@@ -3,11 +3,11 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
 
   def index
     users = User.includes(:profile).order(rate: :desc).page(params[:page])
-    users = users.search(params["name"], current_user) if params["name"]
-
+    users = users.search(params[:name], current_user) if params[:name]
     if filter_params
+      users = users.joins(:profile)
       users = users.where('profiles.sex' => filter_params[:sex]) if filter_params[:sex]
-      users = users.where('salary <= ?', filter_params[:salary]) if filter_params[:salary]
+      users = users.where('profiles.salary <= ?', filter_params[:salary]) if filter_params[:salary]
       users = users.where('profiles.degree' => filter_params[:degree]) if filter_params[:degree]
       users = users.where(teacher: filter_params[:teacher]) if filter_params[:teacher]
     end
