@@ -37,11 +37,16 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
       ratings.rater_id, profiles.name as name, ratings.rate')
     .order(created_at: :DESC ).page(params[:page])
 
-    can_rating = user.courses_as_teachers.pluck(:student_id).include? current_user.id
+    can_rating = if current_user == user
+      false
+    else
+      user.courses_as_teachers.pluck(:student_id).include? current_user.id
+    end
+
     render json: {
       profile: profile,
       avatar: profile.avatar.url,
-      rate:    user.rate,
+      rate:    user.ratings.average(:rate).to_i,
       can_rating: can_rating,
       is_teacher: user.teacher?,
       ratings: ratings.collect do |r|
