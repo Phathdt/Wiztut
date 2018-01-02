@@ -32,7 +32,7 @@ lophoc = [
 cps = []
 1000.times do
   params = {
-    title: lophoc.sample, grade: rand(12) + 1, subject: rand(8) + 1, time: rand(6) + 1,
+    title: lophoc.sample, grade: rand(12), subject: rand(8) + 1, time: rand(6) + 1,
     address: rand(21) + 1, real_address: Faker::Address.street_address, salary: (rand 2000 + 1000 ) * 1000,
     sex_require: rand(3) , degree_require: rand(5) , note: Faker::StarWars.quote, user_id: rand(100) +1, phone: Faker::PhoneNumber.phone_number, frequency: rand(5) + 1
   }
