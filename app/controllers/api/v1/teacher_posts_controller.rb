@@ -19,7 +19,8 @@ class Api::V1::TeacherPostsController < Api::V1::BaseApiController
     render json: {
       teacher_post: @tp,
       profile_id: @tp.owner.id,
-      profile_name: @tp.owner.name
+      profile_name: @tp.owner.name,
+      avatar: @tp.owner.avatar
       }, status: 200
   end
 

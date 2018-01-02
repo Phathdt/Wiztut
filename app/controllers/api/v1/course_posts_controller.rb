@@ -21,7 +21,8 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
     render json: {
       course_post: @cp,
       profile_id: @cp.owner.id,
-      profile_name: @cp.owner.name
+      profile_name: @cp.owner.name,
+      avatar: @cp.owner.avatar
       }, status: 200
   end
 
