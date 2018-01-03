@@ -40,14 +40,23 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
     can_rating = if current_user == user
       false
     else
-      user.courses_as_teachers.pluck(:student_id).include? current_user.id
+      user.courses_as_teachers.where(status: 1).pluck(:student_id).include? current_user.id
     end
 
     render json: {
+      user_id: user.id,
       profile: profile,
+      email: user.email,
       avatar: profile.avatar.url,
       rate:    user.ratings.average(:rate).to_i,
       can_rating: can_rating,
+      courses:  Course.get_your_course(current_user.id).limit(5).collect.with_index do |c, index|
+        {
+          id: index + 1,
+          name: c.name,
+          role: c.role(current_user.id)
+        }
+      end,
       is_teacher: user.teacher?,
       ratings: ratings.collect do |r|
         {
