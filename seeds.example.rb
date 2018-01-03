@@ -59,10 +59,14 @@ end
 
 TeacherPost.import tps
 
+names = [
+  'lớp học tiếng anh', 'lớp học toán',  'lớp học anh văn', 'lớp văn hoá', 'lớp chất lượng cao',
+  'lớp siêu tốc', 'lớp tin học', 'lớp mẫu giáo'
+]
 
 coures = []
 10000.times do
-  coures << Course.new(teacher_id: rand(100) + 1, student_id: rand(100) + 1)
+  coures << Course.new(teacher_id: rand(100) + 1, student_id: rand(100) + 1, name: names.sample)
 end
 
 Course.import coures
