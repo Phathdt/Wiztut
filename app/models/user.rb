@@ -2,6 +2,8 @@ class User < ApplicationRecord
   extend Devise::Models
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  delegate :name, to: :profile
   # Association
   has_one :profile, dependent: :destroy
   has_many :course_posts, dependent: :destroy
@@ -17,5 +19,9 @@ class User < ApplicationRecord
   # default_scope { where("profiles.id IS NOT NULL")}
   scope :search, -> ( name, current_user) do
     joins(:profile).where('lower(profiles.name) like ?', "%#{name}%").where.not("users.id": current_user.id)
+  end
+
+  def avatar
+    profile.avatar.url
   end
 end
