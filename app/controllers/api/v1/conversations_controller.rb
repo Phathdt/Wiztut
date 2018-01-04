@@ -10,10 +10,12 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
     conversation = Conversation.find(params[:id])
     messages = conversation.messages.order( created_at: :DESC ).page(params[:page])
     authorize conversation
+    is_teacher = conversation.opposite(current_user.id).user.teacher
 
     render json: {
       conversation: conversation,
-      messages: messages
+      messages: messages,
+      is_teacher: is_teacher
     }, status: 200
   end
 
@@ -39,6 +41,28 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
 
     conversation.destroy
     render json: { message: t('.destroy_conversation') }, status: 200
+  end
+
+  def find_conversation_with
+    user = User.find(params[:id])
+
+    if current_user == user
+      render json: { message: t('.errors') }, status: 404
+    end
+
+    unless conversation = Conversation.between(current_user.id, user.id).first
+      conversation = Conversation.new(sender_id: current_user.id, recipient_id: user.id)
+      conversation.save
+    end
+
+    messages = conversation.messages.order( created_at: :DESC ).page(params[:page])
+
+    render json: {
+      conversation: conversation,
+      messages: messages,
+      user_name: user.name
+    }, status: 200
+
   end
 
   private
