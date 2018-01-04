@@ -12,7 +12,7 @@ class Api::V1::CoursesController < Api::V1::BaseApiController
   end
 
   def create
-    course = Course.find_or_initialize_by(strong_params.merge({ student_id: current_user.id}))
+    course = Course.new(strong_params.merge({ student_id: current_user.id}))
     if course.save
       render json: {
         message: t('.create_course'),
@@ -59,6 +59,6 @@ class Api::V1::CoursesController < Api::V1::BaseApiController
     @course = Course.find(params[:id])
   end
   def strong_params
-    params.require(:courses).permit( :teacher_id, :status)
+    params.require(:courses).permit( :teacher_id, :name, :status)
   end
 end
