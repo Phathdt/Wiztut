@@ -102,6 +102,11 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
     end
   end
 
+  def toggle
+    current_user.toggle(:teacher)
+    render json: { message: I18n.t('profile.toggle') }, status: 200
+  end
+
   private
   def strong_params
     params.require(:profiles).permit(
