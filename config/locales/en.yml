@@ -24,6 +24,7 @@ en:
   not_authenticated: Not Authenticated
   profile:
     has_present: 'Profile has present, cannot create new profile for this user'
+    toggle: toggle user success
   record_not_found: 'Record not found'
   dont_have_permission: "Oop! You dont have permission"
   api:
@@ -75,6 +76,7 @@ en:
           create_conversation: Created Convesation
         destroy:
           destroy_conversation: Destroyed Conversation
+        errors: Cannot find a conversation because same user
       messages:
         create:
           create_message: Created Message
