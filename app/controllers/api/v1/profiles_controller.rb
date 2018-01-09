@@ -104,6 +104,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
 
   def toggle
     current_user.toggle(:teacher)
+    current_user.save
     render json: { message: I18n.t('profile.toggle') }, status: 200
   end
 
