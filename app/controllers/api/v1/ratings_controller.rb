@@ -3,11 +3,13 @@ class Api::V1::RatingsController < Api::V1::BaseApiController
 
   def create
     # delete old rating if exist
+    old_rating = Rating.find_by(rater_id: current_user.id,rated_id:
+      strong_params[:rated_id])
+    old_rating.destroy if old_rating
+
     rating = Rating.new(strong_params.merge({ rater_id: current_user.id}))
     authorize rating
 
-    old_rating = Rating.find_by(rater_id: current_user.id,rated_id:
-      strong_params[:rated_id]).destroy
     if rating.save
       render json: {
         message: t('.create_rating'),
