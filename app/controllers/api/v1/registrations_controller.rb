@@ -6,7 +6,15 @@ class Api::V1::RegistrationsController < Api::V1::BaseApiController
     if user.save
       render json: {
         message: t('.create_user'),
-        auth_token: get_auth_token(user)
+        data: {
+          id: user.id,
+          email: user.email,
+          admin: user.admin,
+          active: user.active,
+          teacher: user.teacher,
+          rate: user.rate,
+          authentication_token: get_auth_token(user)
+        }
       }, status: 200
     else
       render json: { message: user.errors }, status: 406

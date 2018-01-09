@@ -8,7 +8,7 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
 
   def show
     conversation = Conversation.find(params[:id])
-    messages = conversation.messages.order( created_at: :DESC ).page(params[:page])
+    messages = conversation.messages.order( created_at: :DESC ).limit(10)
     authorize conversation
     is_teacher = conversation.opposite(current_user.id).user.teacher
 
@@ -60,6 +60,7 @@ class Api::V1::ConversationsController < Api::V1::BaseApiController
     render json: {
       conversation: conversation,
       messages: messages,
+      user_id: user.id,
       user_name: user.name
     }, status: 200
 

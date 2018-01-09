@@ -5,7 +5,7 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
 
   def index
     @cps = CoursePost.active.includes(:profile).order('created_at DESC').page(params[:page])
-    @cps = @cps.search(params[:title]) if search_params
+    @cps = @cps.search(params[:title].gsub(/%20/, ' ')) if search_params.present?
     # filter
     if filter_params
       @cps = @cps.where(grade: filter_params[:grade]) if filter_params[:grade]
@@ -71,7 +71,7 @@ class Api::V1::CoursePostsController < Api::V1::BaseApiController
   end
 
   def search_params
-    params.permit(:title)
+    params.slice(:title)
   end
 
   def filter_params

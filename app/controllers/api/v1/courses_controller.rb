@@ -4,11 +4,29 @@ class Api::V1::CoursesController < Api::V1::BaseApiController
 
   def index
     courses = Course.get_your_course(current_user.id).order(updated_at: :desc).page(params[:page])
-    render json: { courses: courses }, status: 200
+    render json: {
+      courses: courses.collect do |c|
+        {
+          id: c.id,
+          teacher: c.teacher.name,
+          teacher_id: c.teacher.id,
+          student: c.student.name,
+          status: CONFIG.dig("course_status", c.status)
+        }
+      end
+    }, status: 200
   end
 
   def show
-    render json: { course: @course }, status: 200
+    c = @course
+    render json: {
+      id: c.id,
+      teacher_id: c.teacher_id,
+      teacher_name: c.teacher.name,
+      student_id: c.student_id,
+      student_name: c.student.name,
+      status: CONFIG.dig("course_status", c.status)
+    }, status: 200
   end
 
   def create
@@ -25,7 +43,11 @@ class Api::V1::CoursesController < Api::V1::BaseApiController
 
   def update
     authorize @course
-    @course.update(strong_params)
+    if  params.dig(:courses, :status) == 'success'
+      @course.status = 'success'
+    else
+      @course.status = 'canceled'
+    end
     if @course.save
       render json: {
         message: t('.update_course'),

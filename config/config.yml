@@ -66,3 +66,8 @@ subjects:
   5: Lịch sử
   6: Địa lý
   7: Tiếng Anh
+
+course_status:
+  waiting_teacher_approval: 0
+  success: 1
+  canceled: 2
