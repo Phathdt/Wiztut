@@ -4,6 +4,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   def index
     users = User.includes(:profile).order(rate: :desc).page(params[:page])
     users = users.search(params[:name].gsub(/%20/, ' '), current_user) if params[:name].present?
+    users = users.where(teacher: true) if params[:teacher].present?
     if filter_params
       users = users.joins(:profile)
       users = users.where('profiles.sex' => filter_params[:sex]) if filter_params[:sex]
