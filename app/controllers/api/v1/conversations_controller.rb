@@ -1,7 +1,8 @@
 class Api::V1::ConversationsController < Api::V1::BaseApiController
 
   def index
-    @conversations = Conversation.involving(current_user).joins(:sender).joins(:recipient).page(params[:page])
+    @conversations = Conversation.involving(current_user).order(updated_at: :DESC)
+      .joins(:sender).joins(:recipient).page(params[:page])
     @current_user = current_user
     render 'conversation/index'
   end

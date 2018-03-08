@@ -2,7 +2,7 @@ class Api::V1::ProfilesController < Api::V1::BaseApiController
   before_action :authenticate_request!
 
   def index
-    users = User.includes(:profile).order(rate: :desc).page(params[:page])
+    users = User.includes(:profile).order(rate: :desc).page(params[:page]).where.not(id: current_user.id)
     users = users.search(params[:name].gsub(/%20/, ' '), current_user) if params[:name].present?
     users = users.where(teacher: true) if params[:teacher].present?
     if filter_params
